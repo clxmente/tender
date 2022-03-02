@@ -51,6 +51,30 @@ export default function Example() {
               </div>
             </div>
           </div>
+          {/* Cuisines and Type of Meal */}
+          <div className='grid grid-cols-2 gap-20'>
+            <div className='block'>
+              <h1 className="text-2xl font-bold mt-6">Cuisines</h1>
+              <div className="grid grid-cols-4 gap-2 mt-3">
+                <Checkbox label="American" />
+                <Checkbox label="Asian" />
+                <Checkbox label="Indian" />
+                <Checkbox label="French" />
+                <Checkbox label="Italian" />
+                <Checkbox label="Japanese" />
+                <Checkbox label="Korean" />
+                <Checkbox label="Mexican" />
+              </div>
+            </div>
+            <div className='block'>
+              <h1 className="text-2xl font-bold mt-6">Type of Meal</h1>
+              <div className="grid grid-cols-4 gap-3 mt-3">
+                <Checkbox label="Breakfast" />
+                <Checkbox label="Lunch" />
+                <Checkbox label="Dinner" />
+              </div>
+            </div>
+          </div>
           {/* END of checkboxes */}
           <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
             <div className="rounded-md shadow">
