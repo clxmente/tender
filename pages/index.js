@@ -12,11 +12,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.png" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Find New Dishes <span className="block text-indigo-500 xl:inline">On the Fly!</span>
+      <main className="place-items-center text-center mt-16 px-4 sm:mt-24 justify-center">
+        <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+        <span className="xl:inline place-items-center text-center justify-center">Find New Dishes <span className="place-items-center text-indigo-600 xl:inline text-center justify-center">On the Fly!</span></span>{' '}
+
         </h1>
-        <p className="mt-3 max-w-md items-center text-base text-gray-500 sm:text-lg sm:justify-center md:mt-5 md:text-xl md:max-w-3xl">
+        <p className="mt-3 place-content-center text-center justify-center text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl max-w-5x1">
         Having trouble deciding where to eat or what to cook? Our easy to use application will help you
         figure out a place to eat from a single swipe, help you find awesome recipes, 
         and help you track your food habits and nutrition! {' '} 
@@ -34,19 +35,6 @@ export default function Home() {
           </a>
         </div>
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
     </div>
   )
 }
