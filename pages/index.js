@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import colors from 'tailwindcss/colors'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
@@ -13,41 +14,23 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Find New Dishes <span className="block text-indigo-500 xl:inline">On the Fly!</span>
         </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
+        <p className="mt-3 max-w-md items-center text-base text-gray-500 sm:text-lg sm:justify-center md:mt-5 md:text-xl md:max-w-3xl">
+        Having trouble deciding where to eat or what to cook? Our easy to use application will help you
+        figure out a place to eat from a single swipe, help you find awesome recipes, 
+        and help you track your food habits and nutrition! {' '} 
         </p>
 
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
+          <a href="#" className={styles.card}>
+            <h2>Browse Recipes &rarr;</h2>
+            <p>Cooking is a staple. Discover new recipes to expand your culinary horizons.</p>
           </a>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
+          <a href="#" className={styles.card}>
+            <h2><span className="block text-indigo-500 xl:inline">Browse Restaurants &rarr;</span></h2>
+            <p><span className="block text-indigo-500 xl:inline">In a rush with little time to cook? Find new restaurants around you.</span></p>
           </a>
         </div>
       </main>
