@@ -6,6 +6,8 @@ import styles from "../styles/Home.module.css";
 export default function Home() {
 	return (
 		<div>
+			<link rel="icon" href="../public/favicon.ico"></link>
+
 			<main className="mx-[25%] place-items-center text-center mt-16 px-4 sm:mt-24 justify-center">
 				<h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
 					<span className="xl:inline place-items-center text-center justify-center">
