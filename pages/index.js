@@ -9,10 +9,10 @@ export default function Home() {
 			<link rel="icon" href="../public/favicon.ico"></link>
 
 			<main className="mx-[25%] place-items-center text-center mt-16 px-4 sm:mt-24 justify-center">
-				<h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+				<h1 className="text-4xl tracking-tight font-extrabold text-gray-900 whitespace-nowrap sm:text-5xl md:text-6xl lg:text-5x1 x1:text-5x1 file:2x1:text-6x1 3x1:text-6x1">
 					<span className="xl:inline place-items-center text-center justify-center">
-						Find New Dishes{" "}
-						<span className="place-items-center text-indigo-600 xl:inline text-center justify-center">
+						Find New Foods{" "}
+						<span className="text-indigo-600">
 							On the Fly!
 						</span>
 					</span>{" "}
