@@ -28,10 +28,10 @@ export default function Example() {
 						clicking the button at the bottom of the screen.
 					</p>
 					{/* Insert Grid of Questions Under this */}
-					<div className="grid grid-cols-2 gap-20">
+					<div className="grid grid-cols-1 xl:grid-cols-2 gap-20">
 						<div className="block">
 							<h1 className="text-2xl font-bold mt-6">Allergies</h1>
-							<div className="grid grid-cols-4 gap-2 mt-3">
+							<div className="grid grid-cols-2 lg:grid-cols-4 gap-2 mt-3">
 								<Checkbox label="Peanuts" />
 								<Checkbox label="Gluten" />
 								<Checkbox label="Dairy" />
@@ -44,7 +44,7 @@ export default function Example() {
 						</div>
 						<div className="block">
 							<h1 className="text-2xl font-bold mt-6">Dietary Choices</h1>
-							<div className="grid grid-cols-4 gap-3 mt-3">
+							<div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-3">
 								<Checkbox label="Keto" />
 								<Checkbox label="No Sugar" />
 								<Checkbox label="Pescatarian" />
@@ -56,10 +56,10 @@ export default function Example() {
 						</div>
 					</div>
 					{/* Cuisines and Type of Meal */}
-					<div className="grid grid-cols-2 gap-20">
+					<div className="grid grid-cols-1 xl:grid-cols-2 gap-20">
 						<div className="block">
 							<h1 className="text-2xl font-bold mt-6">Cuisines</h1>
-							<div className="grid grid-cols-4 gap-2 mt-3">
+							<div className="grid grid-cols-2 lg:grid-cols-4 gap-2 mt-3">
 								<Checkbox label="American" />
 								<Checkbox label="Asian" />
 								<Checkbox label="Indian" />
@@ -72,7 +72,7 @@ export default function Example() {
 						</div>
 						<div className="block">
 							<h1 className="text-2xl font-bold mt-6">Type of Meal</h1>
-							<div className="grid grid-cols-4 gap-3 mt-3">
+							<div className="grid grid-cols-2 gap-3 mt-3">
 								<Checkbox label="Breakfast" />
 								<Checkbox label="Lunch" />
 								<Checkbox label="Dinner" />
