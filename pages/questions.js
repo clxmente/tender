@@ -1,17 +1,6 @@
-/* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from "react";
-import { Popover, Transition } from "@headlessui/react";
-import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import Checkbox from "../components/Checkbox";
 
-const navigation = [
-	{ name: "Product", href: "#" },
-	{ name: "Features", href: "#" },
-	{ name: "Marketplace", href: "#" },
-	{ name: "Company", href: "#" },
-];
-
-export default function Example() {
+export default function Questionnaire() {
 	return (
 		<div className="bg-gray-50 overflow-hidden">
 			<div className="relative pt-6 pb-16 sm:pb-24">
