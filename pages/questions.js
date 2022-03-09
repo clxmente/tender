@@ -11,7 +11,7 @@ const navigation = [
 	{ name: "Company", href: "#" },
 ];
 
-export default function Example() {
+export default function Questionnaire() {
 	return (
 		<div className="bg-gray-50 overflow-hidden">
 			<div className="relative pt-6 pb-16 sm:pb-24">
