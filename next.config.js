@@ -3,4 +3,8 @@ const nextConfig = {
   reactStrictMode: true,
 }
 
-module.exports = nextConfig
+module.exports = {
+  images: {
+    domains: ["images.unsplash.com", "loveincorporated.blob.core.windows.net"]
+  }
+}
