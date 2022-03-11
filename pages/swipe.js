@@ -6,7 +6,7 @@ import { useState } from "react";
 function Swipe() {
   const [imgSrc, setImgSrc] = useState("/starting_dish.jpg");
   const [foodTitle, setFoodTitle] = useState("Food Title");
-  const [foodDesc, setFoodDesc] = useState("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac lorem sem. Mauris vehicula a.");
+  const [foodDesc, setFoodDesc] = useState("Lore ipsum dolor sit amet, consectetur adipiscing elit. Sed ac lorem sem. Mauris vehicula a.");
 
   function handleDislike() {
     axios.get("https://random.imagecdn.app/v1/image?width=600&height=600&format=text").then(res => {
