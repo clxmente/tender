@@ -8,22 +8,23 @@ export default function Home() {
 		<div>
 			<link rel="icon" href="../public/favicon.ico"></link>
 
-			<main className="mx-[25%] place-items-center text-center mt-16 px-4 sm:mt-24 justify-center">
-				<h1 className="text-4xl tracking-tight font-extrabold text-gray-900 whitespace-nowrap sm:text-5xl md:text-6xl lg:text-5x1 x1:text-5x1 file:2x1:text-6x1 3x1:text-6x1">
-					<span className="xl:inline place-items-center text-center justify-center">
-						Find New Foods{" "}
+			<main className="mx-[25%] place-items-center text-center mt-16 px-4 sm:mt-24 justify-center overflow-hidden">
+				<h1 className="lg:text-6xl md:text-5xl sm:text-4xl tracking-tight font-extrabold text-gray-900 whitespace-pre-wrap max-w-screen-2xl">
+					<span className="place-items-center text-left justify-center md:break-words">
+						Find New Foods {""}
 						<span className="text-indigo-600">
 							On the Fly!
 						</span>
-					</span>{" "}
+					</span>
 				</h1>
-				<p className="mt-3 place-content-center text-center justify-center text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl max-w-5x1">
+				<p className="block lg:text-lg md:text-lg sm:text-lg md:break-words mt-3 place-content-center text-base whitespace-pre-wrap sm:whitespace-normal text-gray-500 sm:mt-3 md:text-5x1 max-w-screen-xl">
 					Having trouble deciding where to eat or what to cook? Our easy to use
 					application will help you figure out a place to eat from a single
 					swipe, help you find awesome recipes, and help you track your food
 					habits and nutrition!{" "}
 				</p>
 
+				<div className="tracking-tight">
 				<div className={styles.grid}>
 					<a href="#" className={styles.card}>
 						<h2>Browse Recipes &rarr;</h2>
@@ -40,6 +41,7 @@ export default function Home() {
 							you.
 						</p>
 					</a>
+				</div>
 				</div>
 			</main>
 		</div>
