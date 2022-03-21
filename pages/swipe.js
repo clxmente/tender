@@ -4,9 +4,8 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 function Swipe() {
-  const [imgSrc, setImgSrc] = useState("/starting_dish.jpg");
+  const [imgSrc, setImgSrc] = useState("/favicon.ico");
   const [foodTitle, setFoodTitle] = useState("Food Title");
-  // const [foodDesc, setFoodDesc] = useState("Lore ipsum dolor sit amet, consectetur adipiscing elit. Sed ac lorem sem. Mauris vehicula a.");
   const [ingList, setIngList] = useState([]);
   const [foodList, setFoodList] = useState({});
   const [itemNum, setItemNum] = useState(0);
@@ -20,9 +19,14 @@ function Swipe() {
 
   function handleLike() {
     // get a new recipe & save recipe ID to json file
-    axios.get("https://random.imagecdn.app/v1/image?width=600&height=600&format=text").then(res => {
-      setImgSrc(res.data);
-    })
+
+    // save recipe
+
+    // get a new recipe
+    setItemNum(itemNum + 1);
+    setIngList(foodList[itemNum].recipe.ingredientLines);
+    setFoodTitle(foodList[itemNum].recipe.label);
+    setImgSrc(foodList[itemNum].recipe.images.LARGE["url"]);
   }
 
   useEffect(async () => {
@@ -31,7 +35,8 @@ function Swipe() {
       `/api/getrecipes`
     );
     const data = await response.json();
-
+    
+    setFoodList(data);
     setIngList(data[itemNum].recipe.ingredientLines); // get the ingredient list
     setFoodTitle(data[itemNum].recipe.label); // get the recipe title
     setImgSrc(data[itemNum].recipe.images.LARGE["url"]); // get image url
@@ -52,7 +57,7 @@ function Swipe() {
         </div>
         <h1 className="font-bold text-lg mt-10">{foodTitle}</h1>
         <ul className="text-lg text-[#848484] w-96 lg:w-[600px] list-disc ml-5">
-          {ingList.map((line) => {return <li>{line}</li>})}
+          {ingList.map((line) => {return <li key={line}>{line}</li>})}
         </ul>
         <div className="mt-5 grid grid-cols-2 gap-10">
           <button onClick={handleDislike} className="rounded-md drop-shadow-md bg-red-500 hover:bg-red-600 px-3 py-2 text-white font-semibold">Dislike</button>
