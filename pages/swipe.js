@@ -9,21 +9,50 @@ function Swipe() {
   const [ingList, setIngList] = useState([]);
   const [foodList, setFoodList] = useState({});
   const [itemNum, setItemNum] = useState(0);
+  const [itemID, setItemID] = useState("");
+  const [itemURL, setItemURL] = useState("");
 
   function handleDislike() {
     // get a new recipe
-    axios.get("https://random.imagecdn.app/v1/image?width=600&height=600&format=text").then(res => {
-      setImgSrc(res.data);
-    })
+    setItemNum(itemNum + 1);
+    setIngList(foodList[itemNum].recipe.ingredientLines);
+    setFoodTitle(foodList[itemNum].recipe.label);
+    setImgSrc(foodList[itemNum].recipe.images.LARGE["url"]);
   }
 
-  function handleLike() {
+  // split the url and recipe ID
+  function break_address(url_add) {
+    var data = url_add.split("://")
+    data = data[1].split("edamam.owl#recipe_");
+
+    if(data[1]){
+        return [data[1]]
+    }
+  }
+
+
+  async function handleLike() {
     // get a new recipe & save recipe ID to json file
 
     // save recipe
+    const obj = {
+      "recipeID": itemID[0],
+      "title": foodTitle,
+      "url": itemURL
+    };
+    const response = await fetch("/api/saverecipe", {
+      method: "POST",
+      body: JSON.stringify(obj),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
 
+    const data = await response.json();
+    console.log(data);
     // get a new recipe
     setItemNum(itemNum + 1);
+    setItemID(break_address(foodList[itemNum].recipe.uri));
     setIngList(foodList[itemNum].recipe.ingredientLines);
     setFoodTitle(foodList[itemNum].recipe.label);
     setImgSrc(foodList[itemNum].recipe.images.LARGE["url"]);
@@ -36,6 +65,8 @@ function Swipe() {
     );
     const data = await response.json();
     
+    setItemID(break_address(data[itemNum].recipe.uri));
+    setItemURL(data[itemNum].recipe.uri);
     setFoodList(data);
     setIngList(data[itemNum].recipe.ingredientLines); // get the ingredient list
     setFoodTitle(data[itemNum].recipe.label); // get the recipe title
