@@ -70,9 +70,7 @@
 .grid {
 	display: flex;
 	align-items: center;
-	justify-content: flex-end;
-	flex-wrap: wrap;
-	max-width: 800px;
+	justify-content: center;
 }
 
 .card {
