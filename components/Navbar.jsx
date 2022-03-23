@@ -42,7 +42,7 @@ export default function Swipe() {
 												alt={"Tender Logo"}
 												width={32}
 												height={32}
-												onClick={changeImg()}
+												onClick={() => changeImg()}
 											/>
 										</div>
 									</a>
