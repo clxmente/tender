@@ -1,4 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+// this is an example of using Next.js api calls
 
 export default async function handler(req, res) {
   const response = await fetch(
