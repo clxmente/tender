@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import Link from "next/link";
@@ -11,15 +11,15 @@ const navigation = [
 ];
 
 const tenderIcon = "/favicon.ico";
-const otherIcon = "/starting_dish.jpg";
-let iconLink = tenderIcon;
+const otherIcon = "/broccoli.png";
 
 export default function Swipe() {
+	const [iconLink, setIconLink] = useState("/favicon.ico");
 	function changeImg() {
 		if (iconLink === tenderIcon) {
-			iconLink = otherIcon;
+			setIconLink(otherIcon);
 		} else {
-			iconLink = tenderIcon;
+			setIconLink(tenderIcon);
 		}
 	}
 
@@ -42,7 +42,6 @@ export default function Swipe() {
 												alt={"Tender Logo"}
 												width={32}
 												height={32}
-												onClick={() => changeImg()}
 											/>
 										</div>
 									</a>
@@ -65,7 +64,16 @@ export default function Swipe() {
 							))}
 						</div>
 						<div className="hidden md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0">
-							<span className="inline-flex rounded-md shadow"></span>
+							<span className="inline-flex rounded-md shadow">
+								<button
+									onClick={() => {
+										changeImg();
+									}}
+									className="inline-flex items-center px-4 py-2 border border-transparent text-base font-semibold rounded-md text-indigo-600 bg-white hover:bg-gray-50"
+								>
+									Change Logo
+								</button>
+							</span>
 						</div>
 					</nav>
 				</div>
