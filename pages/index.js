@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import colors from "tailwindcss/colors";
 import styles from "../styles/Home.module.css";
 
@@ -24,13 +25,15 @@ export default function Home() {
 
 				<div className="tracking-tight">
 					<div className={styles.grid}>
-						<a href="#" className={styles.card}>
-							<h2>Browse Recipes &rarr;</h2>
-							<p>
-								Cooking is a staple. Discover new recipes to expand your
-								culinary horizons.
-							</p>
-						</a>
+						<Link href={"/questions"}>
+							<a className={styles.card}>
+								<h2>Browse Recipes &rarr;</h2>
+								<p>
+									Cooking is a staple. Discover new recipes to expand your
+									culinary horizons.
+								</p>
+							</a>
+						</Link>
 
 						<a href="#" className={styles.card2}>
 							<h2>Browse Restaurants &rarr;</h2>
