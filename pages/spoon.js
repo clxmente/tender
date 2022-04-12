@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-function Swipe({ recipeList }) {
+function Spoon({ recipeList }) {
   const [itemNum, setItemNum] = useState(0);
 
   function handleDislike() {
@@ -48,7 +48,7 @@ function Swipe({ recipeList }) {
   }
 
   return (
-    <div className="flex justify-center mb-20 mt-10">
+    <div className="flex justify-center mb-20">
       <div>
         <div className="w-96 h-96 lg:w-[600px] lg:h-[600px] object-cover rounded-md overflow-hidden drop-shadow-md">
           <Image
@@ -91,11 +91,41 @@ function Swipe({ recipeList }) {
   );
 }
 
-Swipe.getInitialProps = async (ctx) => {
+Spoon.getInitialProps = async (ctx) => {
+  const allergies = JSON.parse(window.sessionStorage.getItem("allergies"));
+  const diet = JSON.parse(window.sessionStorage.getItem("diet"));
+  const mealTypes = JSON.parse(window.sessionStorage.getItem("mealTypes"));
+  const cuisine = JSON.parse(window.sessionStorage.getItem("cuisine"));
+
+  var unformatted_tags = "";
+
+  if (allergies.length !== 0) {
+    allergies.map((str) => {
+      unformatted_tags += str + ",";
+    });
+  }
+  if (diet.length !== 0) {
+    diet.map((str) => {
+      unformatted_tags += str + ",";
+    });
+  }
+  if (mealTypes.length !== 0) {
+    mealTypes.map((str) => {
+      unformatted_tags += str + ",";
+    });
+  }
+  if (cuisine.length !== 0) {
+    cuisine.map((str) => {
+      unformatted_tags += str + ",";
+    });
+  }
+
+  var formatted = unformatted_tags.toLowerCase().slice(0, -1);
+
   const res = await fetch("http://localhost:3000/api/getRecipes");
   const json = await res.json();
 
   return { recipeList: json };
 };
 
-export default Swipe;
+export default Spoon;
