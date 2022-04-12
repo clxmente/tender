@@ -1,5 +1,5 @@
 module.exports = {
   images: {
-    domains: [ "www.edamam.com", "images.unsplash.com", "loveincorporated.blob.core.windows.net"]
-  }
-}
+    domains: ["www.edamam.com", "edamam-product-images.s3.amazonaws.com"],
+  },
+};
