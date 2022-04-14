@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "recipeID": 639465,
+    "title": "Cinnamon Mocha Quick Bread",
+    "url": "https://www.foodista.com/recipe/YVJD7FQ4/cinnamon-mocha-quick-bread",
+    "servings": 16,
+    "mealType": "morning meal",
+    "readyIn": 45,
+    "image": "https://spoonacular.com/recipeImages/639465-556x370.jpg"
+  },
+  {
+    "recipeID": 655098,
+    "title": "Peach Coconut Ice Cream",
+    "url": "https://www.foodista.com/recipe/SWTCJPT6/peach-coconut-ice-cream",
+    "servings": 14,
+    "mealType": "dessert",
+    "readyIn": 45,
+    "image": "https://spoonacular.com/recipeImages/655098-556x370.jpg"
+  },
+  {
+    "recipeID": 634091,
+    "title": "Banana Foster Bread Pudding",
+    "url": "https://www.foodista.com/recipe/4RYKKRMV/banana-foster-bread-pudding",
+    "servings": 8,
+    "mealType": "dessert",
+    "readyIn": 45,
+    "image": "https://spoonacular.com/recipeImages/634091-556x370.jpg"
+  },
+  {
+    "recipeID": 644488,
+    "title": "German Rhubarb Cake with Meringue",
+    "url": "https://www.foodista.com/recipe/68PX6QXK/german-rhubarb-cake-with-meringue",
+    "servings": 12,
+    "mealType": "dessert",
+    "readyIn": 45,
+    "image": "https://spoonacular.com/recipeImages/644488-556x370.jpg"
+  }
+]
