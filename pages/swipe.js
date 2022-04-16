@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 import ReactHtmlParser from "react-html-parser";
 
-function Spoon({ recipeList }) {
+function Swipe({ recipeList }) {
   const [itemNum, setItemNum] = useState(0);
 
   function handleDislike() {
@@ -12,11 +12,11 @@ function Spoon({ recipeList }) {
     setItemNum(itemNum + 1);
   }
 
-  async function handleLike() {
+  function handleLike() {
     console.log("liked");
     // get a new recipe & save recipe ID to json file
 
-    // save recipe
+    // make recipe object
     const obj = {
       recipeID: recipeList["recipes"][itemNum]["id"],
       title: recipeList["recipes"][itemNum]["title"],
@@ -26,16 +26,20 @@ function Spoon({ recipeList }) {
       readyIn: recipeList["recipes"][itemNum]["readyInMinutes"],
       image: recipeList["recipes"][itemNum]["image"],
     };
-    const response = await fetch("/api/saveRecipe", {
-      method: "POST",
-      body: JSON.stringify(obj),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
 
-    const data = await response.json();
-    console.log(data);
+    // save to session storage
+    // first retrieve the current list of liked recipes
+    var curr_recipes = JSON.parse(window.sessionStorage.getItem("recipes"));
+    // if there have been no liked this session, make it an empty list
+    if (!curr_recipes) {
+      curr_recipes = [];
+    }
+    // add the liked object to the session array of likes
+    var liked_recipes = [...curr_recipes, obj];
+    console.log(liked_recipes);
+    // write to the session storage again with the new added recipe
+    window.sessionStorage.setItem("recipes", JSON.stringify(liked_recipes));
+
     // get a new recipe
     setItemNum(itemNum + 1);
   }
@@ -92,7 +96,7 @@ function Spoon({ recipeList }) {
   );
 }
 
-Spoon.getInitialProps = async (ctx) => {
+Swipe.getInitialProps = async (ctx) => {
   const allergies = JSON.parse(window.sessionStorage.getItem("allergies"));
   const diet = JSON.parse(window.sessionStorage.getItem("diet"));
   const mealTypes = JSON.parse(window.sessionStorage.getItem("mealTypes"));
@@ -100,22 +104,22 @@ Spoon.getInitialProps = async (ctx) => {
 
   var unformatted_tags = "";
 
-  if (allergies.length !== 0) {
+  if (allergies) {
     allergies.map((str) => {
       unformatted_tags += str + ",";
     });
   }
-  if (diet.length !== 0) {
+  if (diet) {
     diet.map((str) => {
       unformatted_tags += str + ",";
     });
   }
-  if (mealTypes.length !== 0) {
+  if (mealTypes) {
     mealTypes.map((str) => {
       unformatted_tags += str + ",";
     });
   }
-  if (cuisine.length !== 0) {
+  if (cuisine) {
     cuisine.map((str) => {
       unformatted_tags += str + ",";
     });
@@ -129,6 +133,8 @@ Spoon.getInitialProps = async (ctx) => {
   let payload = {
     tags: formatted,
   };
+
+  console.log(payload);
 
   const res = await fetch("http://localhost:3000/api/getRecipes", {
     method: "POST",
@@ -144,4 +150,4 @@ Spoon.getInitialProps = async (ctx) => {
   return { recipeList: json };
 };
 
-export default Spoon;
+export default Swipe;
