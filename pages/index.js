@@ -25,7 +25,7 @@ export default function Home() {
 
         <div className="tracking-tight">
           <div className={styles.grid}>
-            <Link href={"/sq"}>
+            <Link href={"/recipe_questionnaire"}>
               <a className={styles.card}>
                 <h2>Browse Recipes &rarr;</h2>
                 <p>

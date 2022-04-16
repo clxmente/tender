@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import ReactHtmlParser from "react-html-parser";
 
-function Swipe({ recipeList }) {
+function Spoon({ recipeList }) {
   const [itemNum, setItemNum] = useState(0);
 
   function handleDislike() {
@@ -11,27 +12,19 @@ function Swipe({ recipeList }) {
     setItemNum(itemNum + 1);
   }
 
-  // split the url and recipe ID
-  function break_address(url_add) {
-    var data = url_add.split("://");
-    data = data[1].split("edamam.owl#recipe_");
-
-    if (data[1]) {
-      return [data[1]];
-    }
-  }
-
   async function handleLike() {
     console.log("liked");
     // get a new recipe & save recipe ID to json file
 
     // save recipe
     const obj = {
-      recipeID: break_address(recipeList[itemNum]["recipe"]["uri"])[0],
-      title: recipeList[itemNum]["recipe"]["label"],
-      url: recipeList[itemNum]["recipe"]["url"],
-      calories: recipeList[itemNum]["recipe"]["calories"],
-      mealType: recipeList[itemNum]["recipe"]["mealType"][0],
+      recipeID: recipeList["recipes"][itemNum]["id"],
+      title: recipeList["recipes"][itemNum]["title"],
+      url: recipeList["recipes"][itemNum]["sourceUrl"],
+      servings: recipeList["recipes"][itemNum]["servings"],
+      mealType: recipeList["recipes"][itemNum]["dishTypes"][0],
+      readyIn: recipeList["recipes"][itemNum]["readyInMinutes"],
+      image: recipeList["recipes"][itemNum]["image"],
     };
     const response = await fetch("/api/saveRecipe", {
       method: "POST",
@@ -48,25 +41,33 @@ function Swipe({ recipeList }) {
   }
 
   return (
-    <div className="flex justify-center mb-20 mt-10">
+    <div className="flex justify-center my-12 mx-12">
       <div>
-        <div className="w-96 h-96 lg:w-[600px] lg:h-[600px] object-cover rounded-md overflow-hidden drop-shadow-md">
-          <Image
-            src={recipeList[itemNum]["recipe"]["images"]["LARGE"]["url"]}
-            alt={"Food Image"}
-            width={600}
-            height={600}
-            priority
-          />
+        <div className="h-80 w-80 m-auto md:w-[600px] md:h-[400px] object-cover overflow-hidden drop-shadow-md">
+          <div className="flex justify-center">
+            <Image
+              src={recipeList["recipes"][itemNum]["image"]}
+              alt={"Food Image"}
+              width={400}
+              height={400}
+              className="rounded-md"
+              priority
+            />
+          </div>
         </div>
         <h1 className="font-bold text-lg mt-10">
-          {recipeList[itemNum]["recipe"]["label"]}
+          {recipeList["recipes"][itemNum]["title"]}
         </h1>
-        <ul className="text-lg text-[#848484] w-96 lg:w-[600px] list-disc ml-5">
-          {recipeList[itemNum]["recipe"]["ingredientLines"].map((line) => {
-            return <li key={line}>{line}</li>;
-          })}
-        </ul>
+        <p className="text-[#848484] text-sm md:w-[600px] bg-gray-50">
+          {ReactHtmlParser(recipeList["recipes"][itemNum]["summary"])}
+        </p>
+        {/* <ul className="text-lg text-[#848484] w-96 lg:w-[400px] list-disc ml-5">
+					{recipeList["recipes"][0]["extendedIngredients"].map(
+						(ingObj, index) => {
+							return <li key={index}>{ingObj["original"]}</li>;
+						}
+					)}
+				</ul> */}
         <div className="mt-5 grid grid-cols-2 gap-10">
           <button
             onClick={handleDislike}
@@ -91,11 +92,56 @@ function Swipe({ recipeList }) {
   );
 }
 
-Swipe.getInitialProps = async (ctx) => {
-  const res = await fetch("http://localhost:3000/api/getRecipes");
+Spoon.getInitialProps = async (ctx) => {
+  const allergies = JSON.parse(window.sessionStorage.getItem("allergies"));
+  const diet = JSON.parse(window.sessionStorage.getItem("diet"));
+  const mealTypes = JSON.parse(window.sessionStorage.getItem("mealTypes"));
+  const cuisine = JSON.parse(window.sessionStorage.getItem("cuisine"));
+
+  var unformatted_tags = "";
+
+  if (allergies.length !== 0) {
+    allergies.map((str) => {
+      unformatted_tags += str + ",";
+    });
+  }
+  if (diet.length !== 0) {
+    diet.map((str) => {
+      unformatted_tags += str + ",";
+    });
+  }
+  if (mealTypes.length !== 0) {
+    mealTypes.map((str) => {
+      unformatted_tags += str + ",";
+    });
+  }
+  if (cuisine.length !== 0) {
+    cuisine.map((str) => {
+      unformatted_tags += str + ",";
+    });
+  }
+
+  var formatted = unformatted_tags.toLowerCase().slice(0, -1);
+  if (!formatted) {
+    formatted = "none";
+  }
+
+  let payload = {
+    tags: formatted,
+  };
+
+  const res = await fetch("http://localhost:3000/api/getRecipes", {
+    method: "POST",
+    body: JSON.stringify(payload),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
   const json = await res.json();
+
+  console.log(json);
 
   return { recipeList: json };
 };
 
-export default Swipe;
+export default Spoon;
