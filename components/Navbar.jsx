@@ -6,8 +6,7 @@ import Image from "next/image";
 
 const navigation = [
   { name: "Home", href: "/" },
-  { name: "Swipe", href: "/swipe" },
-  { name: "Likes", href: "/viewlikes" },
+  { name: "Likes", href: "/likes" },
 ];
 
 const tenderIcon = "/favicon.ico";

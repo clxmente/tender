@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { useState } from "react";
-import Checkbox from "../components/Checkbox";
+import Checkbox from "../../components/Checkbox";
 
-export default function Sq() {
+export default function RecipeQuestions() {
   const [allergies, setAllergies] = useState([]);
   const [diet, setDiet] = useState([]);
   const [cuisine, setCuisine] = useState([]);
@@ -17,7 +17,7 @@ export default function Sq() {
             Preferences Below
           </span>{" "}
         </h1>
-        <p className="mt-3 max-w-md text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
+        <p className="mt-3 max-w-md text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-4xl">
           These choices will affect the dishes shown to you. You can customize
           your preferences by selecting from the checkboxes below, then clicking
           the button at the bottom of the screen. If you don&apos;t have any
@@ -133,7 +133,7 @@ export default function Sq() {
         {/* END of checkboxes */}
         <div className="mt-8 max-w-md mx-auto sm:flex sm:justify-center md:mt-12">
           <div className="rounded-md shadow">
-            <Link href={"/swipe"}>
+            <Link href={"/recipes/swipe"}>
               <a
                 className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-sky-500 hover:bg-sky-600 md:py-4 md:text-lg md:px-10"
                 onClick={() => {

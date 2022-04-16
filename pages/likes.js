@@ -1,6 +1,6 @@
 import Liked from "../components/Liked";
 
-export default function ViewLikes({ LikedRecipes }) {
+export default function Likes({ LikedRecipes }) {
   const liked_cards = LikedRecipes.map((recipe) => {
     return (
       <Liked
@@ -16,7 +16,7 @@ export default function ViewLikes({ LikedRecipes }) {
   return <div className="mx-6 my-6 grid grid-cols-1 gap-3">{liked_cards}</div>;
 }
 
-ViewLikes.getInitialProps = async (ctx) => {
+Likes.getInitialProps = async (ctx) => {
   var recipes = JSON.parse(window.sessionStorage.getItem("recipes"));
 
   if (!recipes) {
