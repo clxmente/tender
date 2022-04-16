@@ -119,16 +119,24 @@ Spoon.getInitialProps = async (ctx) => {
     cuisine.map((str) => {
       unformatted_tags += str + ",";
     });
-
-    console.log(allergies);
   }
 
   var formatted = unformatted_tags.toLowerCase().slice(0, -1);
+  if (!formatted) {
+    formatted = "none";
+  }
 
-  //TODO: use query params to make api call so we can use process.env.SPOON_KEY inside of server-side call
-  const res = await fetch(
-    `https://api.spoonacular.com/recipes/random?number=3&tags=${formatted}&apiKey=794b6f8756b14fe79a759e8e579aa8a3`
-  );
+  let payload = {
+    tags: formatted,
+  };
+
+  const res = await fetch("http://localhost:3000/api/getRecipes", {
+    method: "POST",
+    body: JSON.stringify(payload),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
   const json = await res.json();
 
   console.log(json);
