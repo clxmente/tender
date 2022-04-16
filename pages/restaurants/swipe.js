@@ -90,7 +90,7 @@ function Swipe({ recipeList }) {
             >
               Like
             </button>
-            <Link href={"/viewlikes"} passHref>
+            <Link href={"/likes"} passHref>
               <button className="col-span-2 rounded-md drop-shadow-md bg-sky-500 hover:bg-sky-600 px-3 py-2 text-white font-semibold">
                 View Liked Dishes/Restaurants
               </button>
@@ -115,16 +115,6 @@ Swipe.getInitialProps = async (ctx) => {
   }
   if (diet) {
     diet.map((str) => {
-      unformatted_tags += str + ",";
-    });
-  }
-  if (mealTypes) {
-    mealTypes.map((str) => {
-      unformatted_tags += str + ",";
-    });
-  }
-  if (cuisine) {
-    cuisine.map((str) => {
       unformatted_tags += str + ",";
     });
   }
