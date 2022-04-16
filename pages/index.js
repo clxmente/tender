@@ -5,6 +5,7 @@ export default function Home() {
   return (
     <div className="my-12 mx-12">
       <Head>
+        <title>Tender</title>
         <link rel="icon" href="favicon.ico"></link>
       </Head>
 

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Head from "next/head";
 import { useState } from "react";
 import Checkbox from "../../components/Checkbox";
 
@@ -10,6 +11,9 @@ export default function RecipeQuestions() {
 
   return (
     <div className="relative pb-16 sm:pb-24">
+      <Head>
+        <title>Tender: Recipe Questions</title>
+      </Head>
       <main className="mt-16 mx-auto max-w-7xl px-4 sm:mt-24">
         <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
           <span className="block xl:inline">

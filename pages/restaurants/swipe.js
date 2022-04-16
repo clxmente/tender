@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import ReactHtmlParser from "react-html-parser";
+import Head from "next/head";
 
 function Swipe({ recipeList }) {
   const [itemNum, setItemNum] = useState(0);
@@ -45,51 +46,56 @@ function Swipe({ recipeList }) {
   }
 
   return (
-    <div className="flex justify-center my-12 mx-12">
-      <div>
-        <div className="h-80 w-80 m-auto md:w-[600px] md:h-[400px] object-cover overflow-hidden drop-shadow-md">
-          <div className="flex justify-center">
-            <Image
-              src={recipeList["recipes"][itemNum]["image"]}
-              alt={"Food Image"}
-              width={400}
-              height={400}
-              className="rounded-md"
-              priority
-            />
+    <div>
+      <Head>
+        <title>Tender: View Restaurants</title>
+      </Head>
+      <div className="flex justify-center my-12 mx-12">
+        <div>
+          <div className="h-80 w-80 m-auto md:w-[600px] md:h-[400px] object-cover overflow-hidden drop-shadow-md">
+            <div className="flex justify-center">
+              <Image
+                src={recipeList["recipes"][itemNum]["image"]}
+                alt={"Food Image"}
+                width={400}
+                height={400}
+                className="rounded-md"
+                priority
+              />
+            </div>
           </div>
-        </div>
-        <h1 className="font-bold text-lg mt-10">
-          {recipeList["recipes"][itemNum]["title"]}
-        </h1>
-        <p className="text-[#848484] text-sm md:w-[600px] bg-gray-50">
-          {ReactHtmlParser(recipeList["recipes"][itemNum]["summary"])}
-        </p>
-        {/* <ul className="text-lg text-[#848484] w-96 lg:w-[400px] list-disc ml-5">
+          <h1 className="font-bold text-lg mt-10">
+            {recipeList["recipes"][itemNum]["title"]}
+          </h1>
+          <p className="text-[#848484] text-sm md:w-[600px] bg-gray-50">
+            {ReactHtmlParser(recipeList["recipes"][itemNum]["summary"])}
+          </p>
+          {/* <ul className="text-lg text-[#848484] w-96 lg:w-[400px] list-disc ml-5">
 					{recipeList["recipes"][0]["extendedIngredients"].map(
 						(ingObj, index) => {
 							return <li key={index}>{ingObj["original"]}</li>;
 						}
 					)}
 				</ul> */}
-        <div className="mt-5 grid grid-cols-2 gap-10">
-          <button
-            onClick={handleDislike}
-            className="rounded-md drop-shadow-md bg-red-500 hover:bg-red-600 px-3 py-2 text-white font-semibold"
-          >
-            Dislike
-          </button>
-          <button
-            onClick={handleLike}
-            className="rounded-md drop-shadow-md bg-green-500 hover:bg-green-600 px-3 py-2 text-white font-semibold"
-          >
-            Like
-          </button>
-          <Link href={"/viewlikes"} passHref>
-            <button className="col-span-2 rounded-md drop-shadow-md bg-sky-500 hover:bg-sky-600 px-3 py-2 text-white font-semibold">
-              View Liked Dishes/Restaurants
+          <div className="mt-5 grid grid-cols-2 gap-10">
+            <button
+              onClick={handleDislike}
+              className="rounded-md drop-shadow-md bg-red-500 hover:bg-red-600 px-3 py-2 text-white font-semibold"
+            >
+              Dislike
             </button>
-          </Link>
+            <button
+              onClick={handleLike}
+              className="rounded-md drop-shadow-md bg-green-500 hover:bg-green-600 px-3 py-2 text-white font-semibold"
+            >
+              Like
+            </button>
+            <Link href={"/viewlikes"} passHref>
+              <button className="col-span-2 rounded-md drop-shadow-md bg-sky-500 hover:bg-sky-600 px-3 py-2 text-white font-semibold">
+                View Liked Dishes/Restaurants
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

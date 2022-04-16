@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Liked from "../components/Liked";
 
 export default function Likes({ LikedRecipes }) {
@@ -13,7 +14,14 @@ export default function Likes({ LikedRecipes }) {
     );
   });
 
-  return <div className="mx-6 my-6 grid grid-cols-1 gap-3">{liked_cards}</div>;
+  return (
+    <div>
+      <Head>
+        <title>Tender: Likes</title>
+      </Head>
+      <div className="mx-6 my-6 grid grid-cols-1 gap-3">{liked_cards}</div>
+    </div>
+  );
 }
 
 Likes.getInitialProps = async (ctx) => {
