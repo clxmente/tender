@@ -3,45 +3,53 @@ import Image from "next/image";
 import { useState } from "react";
 import ReactHtmlParser from "react-html-parser";
 import Head from "next/head";
+import RestaurantCard from "../../components/RestaurantCard";
 
-function Swipe({ recipeList }) {
+function Swipe({ restaurantList }) {
   const [itemNum, setItemNum] = useState(0);
 
   function handleDislike() {
     console.log("disliked");
-    // get a new recipe
+    // get a new restaurant
     setItemNum(itemNum + 1);
   }
 
   function handleLike() {
     console.log("liked");
-    // get a new recipe & save recipe ID to json file
 
-    // make recipe object
+    // make restaurant object
     const obj = {
-      recipeID: recipeList["recipes"][itemNum]["id"],
-      title: recipeList["recipes"][itemNum]["title"],
-      url: recipeList["recipes"][itemNum]["sourceUrl"],
-      servings: recipeList["recipes"][itemNum]["servings"],
-      mealType: recipeList["recipes"][itemNum]["dishTypes"][0],
-      readyIn: recipeList["recipes"][itemNum]["readyInMinutes"],
-      image: recipeList["recipes"][itemNum]["image"],
+      restaurantID: restaurantList[itemNum]["establishmentId"],
+      name: restaurantList[itemNum]["name"],
+      url: restaurantList[itemNum]["webUrl"],
+      streetAddress: restaurantList[itemNum]["address1"],
+      secondaryAddress: restaurantList[itemNum]["address2"],
+      city: restaurantList[itemNum]["city"],
+      state: restaurantList[itemNum]["state"],
+      zip: restaurantList[itemNum]["zip"],
+      phone: restaurantList[itemNum]["phone"],
+      categories: restaurantList[itemNum]["categories"],
     };
 
     // save to session storage
-    // first retrieve the current list of liked recipes
-    var curr_recipes = JSON.parse(window.sessionStorage.getItem("recipes"));
+    // first retrieve the current list of liked restaurants
+    var curr_restaurants = JSON.parse(
+      window.sessionStorage.getItem("restaurants")
+    );
     // if there have been no liked this session, make it an empty list
-    if (!curr_recipes) {
-      curr_recipes = [];
+    if (!curr_restaurants) {
+      curr_restaurants = [];
     }
     // add the liked object to the session array of likes
-    var liked_recipes = [...curr_recipes, obj];
-    console.log(liked_recipes);
-    // write to the session storage again with the new added recipe
-    window.sessionStorage.setItem("recipes", JSON.stringify(liked_recipes));
+    var liked_restaurants = [...curr_restaurants, obj];
+    console.log(liked_restaurants);
+    // write to the session storage again with the new added restaurant
+    window.sessionStorage.setItem(
+      "restaurants",
+      JSON.stringify(liked_restaurants)
+    );
 
-    // get a new recipe
+    // get a new restaurant
     setItemNum(itemNum + 1);
   }
 
@@ -51,32 +59,22 @@ function Swipe({ recipeList }) {
         <title>Tender: View Restaurants</title>
       </Head>
       <div className="flex justify-center my-12 mx-12">
-        <div>
-          <div className="h-80 w-80 m-auto md:w-[600px] md:h-[400px] object-cover overflow-hidden drop-shadow-md">
-            <div className="flex justify-center">
-              <Image
-                src={recipeList["recipes"][itemNum]["image"]}
-                alt={"Food Image"}
-                width={400}
-                height={400}
-                className="rounded-md"
-                priority
-              />
-            </div>
+        <div className="max-w-5xl">
+          <div>
+            <RestaurantCard
+              name={restaurantList[itemNum]["name"]}
+              description={ReactHtmlParser(
+                restaurantList[itemNum]["overviewText"]
+              )}
+              address1={restaurantList[itemNum]["address1"]}
+              address2={restaurantList[itemNum]["address2"]}
+              city={restaurantList[itemNum]["city"]}
+              state={restaurantList[itemNum]["state"]}
+              zip={restaurantList[itemNum]["zip"]}
+              phone={restaurantList[itemNum]["phone"]}
+              categories={restaurantList[itemNum]["categories"]}
+            />
           </div>
-          <h1 className="font-bold text-lg mt-10">
-            {recipeList["recipes"][itemNum]["title"]}
-          </h1>
-          <p className="text-[#848484] text-sm md:w-[600px] bg-gray-50">
-            {ReactHtmlParser(recipeList["recipes"][itemNum]["summary"])}
-          </p>
-          {/* <ul className="text-lg text-[#848484] w-96 lg:w-[400px] list-disc ml-5">
-					{recipeList["recipes"][0]["extendedIngredients"].map(
-						(ingObj, index) => {
-							return <li key={index}>{ingObj["original"]}</li>;
-						}
-					)}
-				</ul> */}
           <div className="mt-5 grid grid-cols-2 gap-10">
             <button
               onClick={handleDislike}
@@ -103,35 +101,11 @@ function Swipe({ recipeList }) {
 }
 
 Swipe.getInitialProps = async (ctx) => {
-  const allergies = JSON.parse(window.sessionStorage.getItem("rest_allergies"));
   const restallergies = JSON.parse(
     window.sessionStorage.getItem("rest_allergies")
   );
-  const diet = JSON.parse(window.sessionStorage.getItem("rest_diet"));
   const restdiet = JSON.parse(window.sessionStorage.getItem("rest_diet"));
-
-  navigator.geolocation.getCurrentPosition(function (position) {
-    console.log(position.coords.latitude);
-    console.log(position.coords.longitude);
-  });
-
-  var unformatted_tags = "";
-
-  if (allergies) {
-    allergies.map((str) => {
-      unformatted_tags += str + ",";
-    });
-  }
-  if (diet) {
-    diet.map((str) => {
-      unformatted_tags += str + ",";
-    });
-  }
-
-  var formatted = unformatted_tags.toLowerCase().slice(0, -1);
-  if (!formatted) {
-    formatted = "none";
-  }
+  const lat_long = JSON.parse(window.sessionStorage.getItem("lat_long"));
 
   // default is fullerton,ca
   let payload = {
@@ -139,8 +113,8 @@ Swipe.getInitialProps = async (ctx) => {
     placeName: "",
     stateCode: "",
     zipCode: null,
-    latitude: 33.8708,
-    longitude: -117.9294,
+    latitude: lat_long[0],
+    longitude: lat_long[1],
     glutenFree: restdiet.includes("Gluten-Free") ? "I" : "N",
     vegetarian: restdiet.includes("Vegetarian") ? "I" : "N",
     vegan: restdiet.includes("Vegan") ? "I" : "N",
@@ -163,12 +137,10 @@ Swipe.getInitialProps = async (ctx) => {
     allergyExcellence: false,
     experienceIs: [],
     restaurantIs: [],
-    searchRadius: 10,
+    searchRadius: 5,
   };
 
-  console.log(payload);
-
-  const res = await fetch("http://localhost:3000/api/getRecipes", {
+  const res = await fetch("http://localhost:3000/api/getRestaurants", {
     method: "POST",
     body: JSON.stringify(payload),
     headers: {
@@ -179,7 +151,7 @@ Swipe.getInitialProps = async (ctx) => {
 
   console.log(json);
 
-  return { recipeList: json, pay_load: payload };
+  return { restaurantList: json };
 };
 
 export default Swipe;
