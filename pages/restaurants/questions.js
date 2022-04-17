@@ -56,7 +56,6 @@ export default function RestaurantQuestions() {
                 setList={setAllergies}
               />
               <Checkbox label="Wheat" list={allergies} setList={setAllergies} />
-              <Checkbox label="Wheat" list={allergies} setList={setAllergies} />
             </div>
           </div>
           <div className="block">
@@ -71,7 +70,7 @@ export default function RestaurantQuestions() {
         {/* END of checkboxes */}
         <div className="mt-8 max-w-md mx-auto sm:flex sm:justify-center md:mt-12">
           <div className="rounded-md shadow">
-            <Link href={"/swipe"}>
+            <Link href={"/restaurants/swipe"}>
               <a
                 className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-sky-500 hover:bg-sky-600 md:py-4 md:text-lg md:px-10"
                 onClick={() => {

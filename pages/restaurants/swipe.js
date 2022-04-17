@@ -103,8 +103,17 @@ function Swipe({ recipeList }) {
 }
 
 Swipe.getInitialProps = async (ctx) => {
-  const allergies = JSON.parse(window.sessionStorage.getItem("allergies"));
-  const diet = JSON.parse(window.sessionStorage.getItem("diet"));
+  const allergies = JSON.parse(window.sessionStorage.getItem("rest_allergies"));
+  const restallergies = JSON.parse(
+    window.sessionStorage.getItem("rest_allergies")
+  );
+  const diet = JSON.parse(window.sessionStorage.getItem("rest_diet"));
+  const restdiet = JSON.parse(window.sessionStorage.getItem("rest_diet"));
+
+  navigator.geolocation.getCurrentPosition(function (position) {
+    console.log(position.coords.latitude);
+    console.log(position.coords.longitude);
+  });
 
   var unformatted_tags = "";
 
@@ -124,8 +133,37 @@ Swipe.getInitialProps = async (ctx) => {
     formatted = "none";
   }
 
+  // default is fullerton,ca
   let payload = {
-    tags: formatted,
+    freeText: null,
+    placeName: "",
+    stateCode: "",
+    zipCode: null,
+    latitude: 33.8708,
+    longitude: -117.9294,
+    glutenFree: restdiet.includes("Gluten-Free") ? "I" : "N",
+    vegetarian: restdiet.includes("Vegetarian") ? "I" : "N",
+    vegan: restdiet.includes("Vegan") ? "I" : "N",
+    dairyFree: restallergies.includes("Dairy") ? "C" : "N",
+    eggFree: restallergies.includes("Egg") ? "C" : "N",
+    soyFree: restallergies.includes("Soy") ? "C" : "N",
+    peanutFree: restallergies.includes("Peanuts") ? "C" : "N",
+    treeNutFree: restallergies.includes("Tree Nuts") ? "C" : "N",
+    fishFree: restallergies.includes("Fish") ? "C" : "N",
+    shellfishFree: restallergies.includes("Shellfish") ? "C" : "N",
+    wheatFree: restallergies.includes("Wheat") ? "C" : "N",
+    other: "N",
+    picknicPicks: true,
+    picknicPicksPossible: true,
+    localsOnly: false,
+    drMenuAvailable: false,
+    publishedIngredients: false,
+    partnered: false,
+    sponsored: false,
+    allergyExcellence: false,
+    experienceIs: [],
+    restaurantIs: [],
+    searchRadius: 10,
   };
 
   console.log(payload);
@@ -141,7 +179,7 @@ Swipe.getInitialProps = async (ctx) => {
 
   console.log(json);
 
-  return { recipeList: json };
+  return { recipeList: json, pay_load: payload };
 };
 
 export default Swipe;
