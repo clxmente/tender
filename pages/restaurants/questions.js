@@ -6,6 +6,38 @@ import Checkbox from "../../components/Checkbox";
 export default function RestaurantQuestions() {
   const [allergies, setAllergies] = useState([]);
   const [diet, setDiet] = useState([]);
+  const [city, setCity] = useState("");
+  const [zipCode, setZipCode] = useState();
+  const [invalid, setInvalid] = useState(false);
+  const [latlong, setLatlong] = useState([]);
+  const [ready, setReady] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const response = await fetch(`/api/getCity?zipCode=${zipCode}`);
+    const status = response.status;
+    if (status !== 200) {
+      setInvalid(true);
+      setReady(false);
+      return;
+    }
+    const response_city = await response.json();
+    console.log(response_city);
+
+    // check if a city was found
+    if (response_city["cod"] === "404") {
+      setInvalid(true);
+      setReady(false);
+      return;
+    }
+
+    setCity(`${response_city["name"]}, ${response_city["country"]}`);
+    setLatlong([response_city["lat"], response_city["lon"]]);
+    if (response.status === 200) {
+      setReady(true);
+    }
+  };
 
   return (
     <div className="relative pb-16 sm:pb-24">
@@ -26,6 +58,38 @@ export default function RestaurantQuestions() {
           don&apos;t have any preferences, you don&apos;t have to select
           anything!
         </p>
+        <div className="mt-5">
+          <form onSubmit={() => handleSubmit}>
+            <label htmlFor="zip" className="text-2xl font-bold">
+              Enter Your Zip Code
+            </label>
+            <div className="block space-x-3 mt-3">
+              <input
+                type="text"
+                className={invalid ? "inv-zipBox" : "v-zipBox"}
+                placeholder="Zip Code (92801)"
+                maxLength={5}
+                autoComplete="off"
+                id="zip"
+                name="zip"
+                onInput={(e) => {
+                  setZipCode(e.target.value);
+                  setInvalid(false);
+                }}
+              />
+              <button
+                type="submit"
+                className="bg-indigo-600 px-3 py-2 text-white font-semibold rounded-lg hover:bg-indigo-700"
+                onClick={(e) => handleSubmit(e)}
+              >
+                Find City
+              </button>
+            </div>
+          </form>
+          <p className={city ? `text-lg md:text-xl text-gray-500` : "hidden"}>
+            City: {city}
+          </p>
+        </div>
         {/* Insert Grid of Questions Under this */}
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-20">
           <div className="block">
@@ -70,7 +134,9 @@ export default function RestaurantQuestions() {
         {/* END of checkboxes */}
         <div className="mt-8 max-w-md mx-auto sm:flex sm:justify-center md:mt-12">
           <div className="rounded-md shadow">
-            <Link href={"/restaurants/swipe"}>
+            <Link
+              href={ready ? "/restaurants/swipe" : "/restaurants/questions"}
+            >
               <a
                 className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-sky-500 hover:bg-sky-600 md:py-4 md:text-lg md:px-10"
                 onClick={() => {
@@ -81,6 +147,10 @@ export default function RestaurantQuestions() {
                   window.sessionStorage.setItem(
                     "rest_diet",
                     JSON.stringify(diet)
+                  );
+                  window.sessionStorage.setItem(
+                    "lat_long",
+                    JSON.stringify(latlong)
                   );
                 }}
               >
