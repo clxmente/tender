@@ -26,6 +26,7 @@ function Swipe({ recipeList }) {
       mealType: recipeList["recipes"][itemNum]["dishTypes"][0],
       readyIn: recipeList["recipes"][itemNum]["readyInMinutes"],
       image: recipeList["recipes"][itemNum]["image"],
+      healthScore: recipeList["recipes"][itemNum]["healthScore"],
     };
 
     // save to session storage

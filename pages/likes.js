@@ -7,9 +7,11 @@ export default function Likes({ LikedRecipes }) {
       <Liked
         key={recipe.recipeID}
         label={recipe.title}
-        description={`Calories: ${Math.round(recipe.calories)}`}
+        score={recipe.healthScore}
+        readyIn={recipe.readyIn}
         button={"Recipe"}
         url={recipe.url}
+        image={recipe.image}
       />
     );
   });
