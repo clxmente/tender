@@ -27,7 +27,10 @@ function Swipe({ recipeList }) {
       readyIn: recipeList["recipes"][itemNum]["readyInMinutes"],
       image: recipeList["recipes"][itemNum]["image"],
       healthScore: recipeList["recipes"][itemNum]["healthScore"],
+      aggregateLikes: recipeList["recipes"][itemNum]["aggregateLikes"],
+      summary: recipeList["recipes"][itemNum]["summary"],
     };
+    
 
     // save to session storage
     // first retrieve the current list of liked recipes

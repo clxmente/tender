@@ -12,6 +12,9 @@ export default function Likes({ LikedRecipes }) {
         button={"Recipe"}
         url={recipe.url}
         image={recipe.image}
+        servings={recipe.servings}
+        aggregateLikes={recipe.aggregateLikes}
+        summary={recipe.summary}
       />
     );
   });
