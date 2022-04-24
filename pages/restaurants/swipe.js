@@ -29,6 +29,7 @@ function Swipe({ restaurantList }) {
       zip: restaurantList[itemNum]["zip"],
       phone: restaurantList[itemNum]["phone"],
       categories: restaurantList[itemNum]["categories"],
+      description: restaurantList[itemNum]["overviewText"],
     };
 
     // save to session storage
