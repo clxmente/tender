@@ -1,17 +1,16 @@
 import Head from "next/head";
-// import Liked from "../components/Liked";
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ReactHtmlParser from "react-html-parser";
+import { useState } from "react";
 
 // calls
-// https://api.spoonacular.com/recipes/complexSearch?sort="popularity"&number=25&addRecipeInformation=true&apiKey=2704730fe7d2455e92b80b33c17aa675
-// https://api.spoonacular.com/recipes/complexSearch?sort="healthiness"&number=25&addRecipeInformation=true&apiKey=2704730fe7d2455e92b80b33c17aa675
+// https://api.spoonacular.com/recipes/complexSearch?sort=popularity&number=25&addRecipeInformation=true&apiKey=2704730fe7d2455e92b80b33c17aa675
+// https://api.spoonacular.com/recipes/complexSearch?sort=healthiness&number=25&addRecipeInformation=true&apiKey=2704730fe7d2455e92b80b33c17aa675
 
 export default function Featured({ featuredList, healthyList }) {
 	const [popItemNum, setPopItemNum] = useState(0);
-	const [healthItemNum, setHealthItemNum] = useState(0);
+	const [healthyItemNum, setHealthyItemNum] = useState(0);
 	const [viewState, setViewState] = useState("popularity");
 
 	function changeToPopularity() {
@@ -27,9 +26,9 @@ export default function Featured({ featuredList, healthyList }) {
 		setPopItemNum(popItemNum + 1);
 	}
 
-	function handleHealthDislike() {
+	function handleHealthyDislike() {
 		console.log("disliked");
-		setHealthItemNum(healthItemNum + 1);
+		setHealthyItemNum(healthyItemNum + 1);
 	}
 
 	function handlePopLike() {
@@ -65,6 +64,43 @@ export default function Featured({ featuredList, healthyList }) {
 
 		// get a new recipe
 		setPopItemNum(popItemNum + 1);
+
+		console.log(obj);
+	}
+
+	function handleHealthyLike() {
+		const obj = {
+			recipeID: healthyList["healthyRecipes"][healthyItemNum]["id"],
+			title: healthyList["healthyRecipes"][healthyItemNum]["title"],
+			url: healthyList["healthyRecipes"][healthyItemNum]["sourceUrl"],
+			servings: healthyList["healthyRecipes"][healthyItemNum]["servings"],
+			mealType: healthyList["healthyRecipes"][healthyItemNum]["dishTypes"][0],
+			readyIn: healthyList["healthyRecipes"][healthyItemNum]["readyInMinutes"],
+			image: healthyList["healthyRecipes"][healthyItemNum]["image"],
+			spoonScore:
+				healthyList["healthyRecipes"][healthyItemNum]["spoonacularScore"],
+		};
+
+		// save to session storage
+		// first retrieve the current list of liked recipes
+		var curr_recipes = JSON.parse(
+			window.sessionStorage.getItem("featuredRecipes")
+		);
+		// if there have been no liked this session, make it an empty list
+		if (!curr_recipes) {
+			curr_recipes = [];
+		}
+		// add the liked object to the session array of likes
+		var featured_recipes = [...curr_recipes, obj];
+		console.log(featured_recipes);
+		// write to the session storage again with the new added recipe
+		window.sessionStorage.setItem(
+			"featuredRecipes",
+			JSON.stringify(featured_recipes)
+		);
+
+		// get a new recipe
+		setHealthyItemNum(healthyItemNum + 1);
 
 		console.log(obj);
 	}
@@ -175,7 +211,7 @@ export default function Featured({ featuredList, healthyList }) {
 						<div className="h-80 w-80 mx-auto md:w-[600px] md:h-[400px] object-cover overflow-hidden drop-shadow-md">
 							<div className="flex justify-center">
 								<Image
-									src={featuredList["featuredRecipes"][popItemNum]["image"]}
+									src={healthyList["healthyRecipes"][healthyItemNum]["image"]}
 									alt={"Food Image"}
 									width={400}
 									height={400}
@@ -186,26 +222,31 @@ export default function Featured({ featuredList, healthyList }) {
 						</div>
 
 						<h1 className="font-bold text-lg mt-10">
-							{featuredList["featuredRecipes"][popItemNum]["title"]}
+							{healthyList["healthyRecipes"][healthyItemNum]["title"]}
 						</h1>
 						<h1 className="mb-1">
-							{"Popularity Score: "}
-							{featuredList["featuredRecipes"][popItemNum]["spoonacularScore"]}%
+							{"Healthy Score: "}
+							{
+								healthyList["healthyRecipes"][healthyItemNum][
+									"spoonacularScore"
+								]
+							}
+							%
 						</h1>
 						<p className="text-[#848484] text-sm md:w-[600px] bg-gray-50">
 							{ReactHtmlParser(
-								featuredList["featuredRecipes"][popItemNum]["summary"]
+								healthyList["healthyRecipes"][healthyItemNum]["summary"]
 							)}
 						</p>
 						<div className="mt-5 grid grid-cols-2 gap-10">
 							<button
-								onClick={handlePopDislike}
+								onClick={handleHealthyDislike}
 								className="rounded-md drop-shadow-md bg-red-500 hover:bg-red-600 px-3 py-2 text-white font-semibold"
 							>
 								Dislike
 							</button>
 							<button
-								onClick={handlePopLike}
+								onClick={handleHealthyLike}
 								className="rounded-md drop-shadow-md bg-green-500 hover:bg-green-600 px-3 py-2 text-white font-semibold"
 							>
 								Like
@@ -281,7 +322,8 @@ Featured.getInitialProps = async (ctx) => {
 	});
 	const json2 = await res2.json();
 
-	// console.log(json);
+	console.log(json);
+	console.log(json2);
 
 	return { featuredList: json, healthyList: json2 };
 };
