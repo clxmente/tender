@@ -8,6 +8,7 @@ const navigation = [
 	{ name: "Home", href: "/" },
 	{ name: "Likes", href: "/likes" },
 	{ name: "Featured", href: "/featured" },
+	{ name: "About Us", href: "/team" },
 ];
 
 const tenderIcon = "/favicon.ico";
