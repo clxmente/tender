@@ -43,13 +43,13 @@ export default function Team() {
       <div className="max-w-7xl mx-auto py-12 px-4 text-center sm:px-6 lg:px-8 lg:py-24">
         <div className="space-y-12">
           <div className="space-y-5 sm:mx-auto sm:max-w-xl sm:space-y-4 lg:max-w-5xl">
-            <h2 className="text-3x1 text-indigo-500 font-extrabold tracking-tight sm:text-4xl">
+            <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl text-indigo-500">
               Meet the Tender team
             </h2>
             <p className="text-xl text-black">
-              If you're ever in need of figuring out what your next meal should
-              be, feel free to contact us and we'll do our best to help you with
-              that!
+              If you&apos;re ever in need of figuring out what your next meal
+              should be, feel free to contact us and we&apos;ll do our best to
+              help you with that!
             </p>
           </div>
           <ul
@@ -60,7 +60,7 @@ export default function Team() {
               <li key={person.name}>
                 <div className="space-y-6">
                   <img
-                    className="mx-auto h-50 w-50 rounded-full xl:w-80 xl:h-80"
+                    className="mx-auto h-40 w-40 sm:h-72 sm:w-72 rounded-full"
                     src={person.imageUrl}
                     alt=""
                   />
