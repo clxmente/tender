@@ -141,16 +141,16 @@ export default function RecipeQuestions() {
               <a
                 className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-sky-500 hover:bg-sky-600 md:py-4 md:text-lg md:px-10"
                 onClick={() => {
-                  window.sessionStorage.setItem(
+                  window.localStorage.setItem(
                     "allergies",
                     JSON.stringify(allergies)
                   );
-                  window.sessionStorage.setItem("diet", JSON.stringify(diet));
-                  window.sessionStorage.setItem(
+                  window.localStorage.setItem("diet", JSON.stringify(diet));
+                  window.localStorage.setItem(
                     "cuisine",
                     JSON.stringify(cuisine)
                   );
-                  window.sessionStorage.setItem(
+                  window.localStorage.setItem(
                     "mealTypes",
                     JSON.stringify(mealTypes)
                   );

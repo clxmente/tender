@@ -33,7 +33,7 @@ function Swipe({ recipeList }) {
 
     // save to session storage
     // first retrieve the current list of liked recipes
-    var curr_recipes = JSON.parse(window.sessionStorage.getItem("recipes"));
+    var curr_recipes = JSON.parse(window.localStorage.getItem("recipes"));
     // if there have been no liked this session, make it an empty list
     if (!curr_recipes) {
       curr_recipes = [];
@@ -42,7 +42,7 @@ function Swipe({ recipeList }) {
     var liked_recipes = [...curr_recipes, obj];
     console.log(liked_recipes);
     // write to the session storage again with the new added recipe
-    window.sessionStorage.setItem("recipes", JSON.stringify(liked_recipes));
+    window.localStorage.setItem("recipes", JSON.stringify(liked_recipes));
 
     // get a new recipe
     setItemNum(itemNum + 1);
@@ -106,10 +106,10 @@ function Swipe({ recipeList }) {
 }
 
 Swipe.getInitialProps = async (ctx) => {
-  const allergies = JSON.parse(window.sessionStorage.getItem("allergies"));
-  const diet = JSON.parse(window.sessionStorage.getItem("diet"));
-  const mealTypes = JSON.parse(window.sessionStorage.getItem("mealTypes"));
-  const cuisine = JSON.parse(window.sessionStorage.getItem("cuisine"));
+  const allergies = JSON.parse(window.localStorage.getItem("allergies"));
+  const diet = JSON.parse(window.localStorage.getItem("diet"));
+  const mealTypes = JSON.parse(window.localStorage.getItem("mealTypes"));
+  const cuisine = JSON.parse(window.localStorage.getItem("cuisine"));
 
   var unformatted_tags = "";
 

@@ -35,7 +35,7 @@ function Swipe({ restaurantList }) {
     // save to session storage
     // first retrieve the current list of liked restaurants
     var curr_restaurants = JSON.parse(
-      window.sessionStorage.getItem("restaurants")
+      window.localStorage.getItem("restaurants")
     );
     // if there have been no liked this session, make it an empty list
     if (!curr_restaurants) {
@@ -45,7 +45,7 @@ function Swipe({ restaurantList }) {
     var liked_restaurants = [...curr_restaurants, obj];
     console.log(liked_restaurants);
     // write to the session storage again with the new added restaurant
-    window.sessionStorage.setItem(
+    window.localStorage.setItem(
       "restaurants",
       JSON.stringify(liked_restaurants)
     );
@@ -103,10 +103,10 @@ function Swipe({ restaurantList }) {
 
 Swipe.getInitialProps = async (ctx) => {
   const restallergies = JSON.parse(
-    window.sessionStorage.getItem("rest_allergies")
+    window.localStorage.getItem("rest_allergies")
   );
-  const restdiet = JSON.parse(window.sessionStorage.getItem("rest_diet"));
-  const lat_long = JSON.parse(window.sessionStorage.getItem("lat_long"));
+  const restdiet = JSON.parse(window.localStorage.getItem("rest_diet"));
+  const lat_long = JSON.parse(window.localStorage.getItem("lat_long"));
 
   // default is fullerton,ca
   let payload = {

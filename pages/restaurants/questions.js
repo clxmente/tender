@@ -140,15 +140,15 @@ export default function RestaurantQuestions() {
               <a
                 className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-sky-500 hover:bg-sky-600 md:py-4 md:text-lg md:px-10"
                 onClick={() => {
-                  window.sessionStorage.setItem(
+                  window.localStorage.setItem(
                     "rest_allergies",
                     JSON.stringify(allergies)
                   );
-                  window.sessionStorage.setItem(
+                  window.localStorage.setItem(
                     "rest_diet",
                     JSON.stringify(diet)
                   );
-                  window.sessionStorage.setItem(
+                  window.localStorage.setItem(
                     "lat_long",
                     JSON.stringify(latlong)
                   );
