@@ -262,20 +262,12 @@ export default function Featured({ featuredList, healthyList }) {
 
 Featured.getInitialProps = async (ctx) => {
   const res = await fetch("http://localhost:3000/api/getFeatured", {
-    method: "POST",
-    body: JSON.stringify(payload),
-    headers: {
-      "Content-Type": "application/json",
-    },
+    method: "GET",
   });
   const json = await res.json();
 
   const res2 = await fetch("http://localhost:3000/api/getHealthy", {
-    method: "POST",
-    body: JSON.stringify(payload),
-    headers: {
-      "Content-Type": "application/json",
-    },
+    method: "GET",
   });
   const json2 = await res2.json();
 
