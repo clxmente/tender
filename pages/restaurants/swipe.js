@@ -141,7 +141,7 @@ Swipe.getInitialProps = async (ctx) => {
     searchRadius: 5,
   };
 
-  const res = await fetch("http://localhost:3000/api/getRestaurants", {
+  const res = await fetch("https://tender.vercel.app/api/getRestaurants", {
     method: "POST",
     body: JSON.stringify(payload),
     headers: {

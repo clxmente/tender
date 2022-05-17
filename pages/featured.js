@@ -261,12 +261,12 @@ export default function Featured({ featuredList, healthyList }) {
 }
 
 Featured.getInitialProps = async (ctx) => {
-  const res = await fetch("http://localhost:3000/api/getFeatured", {
+  const res = await fetch("https://tender.vercel.app/api/getFeatured", {
     method: "GET",
   });
   const json = await res.json();
 
-  const res2 = await fetch("http://localhost:3000/api/getHealthy", {
+  const res2 = await fetch("https://tender.vercel.app/api/getHealthy", {
     method: "GET",
   });
   const json2 = await res2.json();
